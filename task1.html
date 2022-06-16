@@ -13,21 +13,21 @@
   <div class="el">5 Ширину элемента root, при необходимости вы можете определить, но в тестах она может быть разная</div>
   <div class="el">6У каждого объявления есть свои стили</div>
   <div class="el">7 Их не нужно менять</div>
-  <!--div class="el">8 Каждое объявление должно быть свободным по высоте</div>
+  <div class="el">8 Каждое объявление должно быть свободным по высоте</div>
   <div class="el">9 А вот ширину нужно будет выставить</div>
-  <div class="el">10 Ширину элемента root, при необходимости вы можете определить, но в тестах она может быть разная</div-->
+  <div class="el">10 Ширину элемента root, при необходимости вы можете определить, но в тестах она может быть разная</div>
 </div>
 <script type="text/javascript">
 	function renderWaterfall(rootNode, columnCount, elementGap) {
     let items = rootNode.querySelectorAll('.el');
     let colunmWidth = Math.trunc((rootNode.offsetWidth - columnCount*elementGap)/columnCount);
     items.forEach(el=>el.setAttribute('style', 'margin-bottom: '+ elementGap + 'px'));
-    rootNode.setAttribute('style', 'display: flex');
+    //rootNode.setAttribute('style', 'display: flex');
     
     for (let i = 0; i < columnCount; i++) {
         let div = document.createElement('div');
         //div.setAttribute('style', 'margin: 0 '+ elementGap + 'px ' + elementGap + 'px 0; width: ' + colunmWidth + 'px');
-        div.setAttribute('style', 'margin-right: '+ elementGap + 'px; width: ' + colunmWidth + 'px');
+        div.setAttribute('style', 'float: left; margin-right: '+ elementGap + 'px; width: ' + colunmWidth + 'px');
         div.setAttribute('name', 'column'+ (i+1));
         rootNode.appendChild(div);
     }
