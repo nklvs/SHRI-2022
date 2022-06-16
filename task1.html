@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="root">
+  <div class="el">1 У каждого объявления есть свои стили</div>
+  <div class="el">2 Их не нужно менять</div>
+  <div class="el">3 Каждое объявление должно быть свободным по высоте</div>
+  <div class="el">4 А вот ширину нужно будет выставить</div>
+  <div class="el">5 Ширину элемента root, при необходимости вы можете определить, но в тестах она может быть разная</div>
+  <div class="el">6У каждого объявления есть свои стили</div>
+  <div class="el">7 Их не нужно менять</div>
+  <!--div class="el">8 Каждое объявление должно быть свободным по высоте</div>
+  <div class="el">9 А вот ширину нужно будет выставить</div>
+  <div class="el">10 Ширину элемента root, при необходимости вы можете определить, но в тестах она может быть разная</div-->
+</div>
+<script type="text/javascript">
+	function renderWaterfall(rootNode, columnCount, elementGap) {
+    let items = rootNode.querySelectorAll('.el');
+    let colunmWidth = Math.trunc((rootNode.offsetWidth - columnCount*elementGap)/columnCount);
+    items.forEach(el=>el.setAttribute('style', 'margin-bottom: '+ elementGap + 'px'));
+    rootNode.setAttribute('style', 'display: flex');
+    
+    for (let i = 0; i < columnCount; i++) {
+        let div = document.createElement('div');
+        //div.setAttribute('style', 'margin: 0 '+ elementGap + 'px ' + elementGap + 'px 0; width: ' + colunmWidth + 'px');
+        div.setAttribute('style', 'margin-right: '+ elementGap + 'px; width: ' + colunmWidth + 'px');
+        div.setAttribute('name', 'column'+ (i+1));
+        rootNode.appendChild(div);
+    }
+
+    let colunmHeights = [];
+    items.forEach((el, ind) =>{
+        if (ind<columnCount){
+            let name = 'column'+(ind+1);
+            let div = rootNode.querySelector("div[name="+name+"]");
+            div.appendChild(el);
+            colunmHeights.push(div.clientHeight);
+        } else {
+            let minHeight = colunmHeights.reduce((a, b)=>a<=b?a:b);
+            let indexMinColunm = colunmHeights.findIndex(e => e==minHeight);
+            let name = 'column'+(indexMinColunm+1);
+            let div = rootNode.querySelector("div[name="+name+"]");
+            div.appendChild(el);
+            colunmHeights[indexMinColunm]=div.clientHeight;
+        }
+    })
+}	
+</script>
+</body>
+</html>
